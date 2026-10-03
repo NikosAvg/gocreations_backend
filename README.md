@@ -61,7 +61,7 @@ mysql -u <user> -p <database> < schema.sql
 php -S localhost:8000 -t public
 ```
 
-Database settings are read from the environment variables `DB_HOST`, `DB_NAME`, `DB_USER` and `DB_PASS`, with local defaults in `src/Database.php`.
+Database settings are local defaults in `src/Database.php`.
 
 ## Testing with curl
 
