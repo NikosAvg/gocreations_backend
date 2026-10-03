@@ -17,7 +17,7 @@ $controller = new VehicleController(
 
 if ($path === '/vehicles'){
     if ($method === 'GET') {
-        $controller->index();
+        $controller->index($_GET);
     } else {
         Response::json(['error' => 'Method not allowed'], 405);
     }

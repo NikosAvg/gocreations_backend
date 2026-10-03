@@ -8,8 +8,8 @@ final class VehicleController
 {
     public function __construct(private VehicleRepository $repository){}
 
-    public function index(): never
+    public function index(array $query): never
     {
-        Response::json($this->repository->findAll());
+        Response::json($this->repository->findAll($query));
     }
 }

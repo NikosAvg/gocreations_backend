@@ -10,10 +10,33 @@ final class VehicleRepository
     {
     }
 
-    public function findAll(): array
+    public function findAll(array $filters = []): array
     {
-        $stmt = $this->pdo->query('SELECT * FROM vehicles ORDER BY id');
-        $stmt->execute();
+        $where = [];
+        $params = [];
+        if(isset($filters['price_min'])) {
+            $where[] = 'price >= :price_min';
+            $params['price_min'] = (float) $filters['price_min'];
+        }
+        if(isset($filters['price_max'])) {
+            $where[] = 'price <= :price_max';
+            $params['price_max'] = (float) $filters['price_max'];
+        }
+        if (isset($filters['transmission'])) {
+                $where[] = 'transmission = :transmission';
+                $params['transmission'] = $filters['transmission'];
+        }
+        if (isset($filters['type_id'])) {
+            $where[] = 'type_id = :type_id';
+            $params['type_id'] = $filters['type_id'];
+        }
+        $sql = 'SELECT * FROM vehicles';
+        if ($where) {
+            $sql .= ' WHERE ' . implode(' AND ', $where);
+        }
+        $sql .= ' ORDER BY id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
 
         return array_map($this->toArray(...), $stmt->fetchAll());
     }
@@ -25,7 +48,7 @@ final class VehicleRepository
             'name' => $row['model_name'],
             "type_id" => (int) $row['type_id'],
             'vehicle_type' => $row['vehicle_type'],
-            'door' => (int) $row['door'],
+            'doors' => (int) $row['doors'],
             'transmission' => $row['transmission'],
             'fuel' => $row['fuel'],
             'price' => (float) $row['price'],
