@@ -23,13 +23,13 @@ A small REST API in plain PHP for managing vehicles (create, read, update, delet
 - [ ] `DELETE /vehicles/{id}`
 
 ### Filters
-- [ ] Sorting: `sort=name_asc`, `name_desc`, `price_asc`, `price_desc`
+- [x] Sorting: `sort=name_asc`, `name_desc`, `price_asc`, `price_desc`
 - [x] Price filter: `price_min`, `price_max`, or both
 - [x] Transmission filter: `manual` / `automatic`
 - [x] Type filter: `type_id`
 - [x] Combined filters (e.g. `type_id=2&transmission=automatic&price_min=100`)
-- [ ] Combined filters with sorting
-- [ ] Invalid query parameters return 400
+- [x] Combined filters with sorting
+- [x] Invalid query parameters return 400
 
 ### Validation
 - [ ] `model_name` required
@@ -144,3 +144,4 @@ Run `mysql -u <user> -p <database> < schema.sql` to reset the data after testing
 - `type_id` references a `vehicle_types` table (category: Economy, Compact, SUV, Van); `vehicle_type` is the kind of vehicle (car, van).
 - Price is stored as `DECIMAL(10,2)` and returned as a number.
 - Trailing slashes are ignored (`/vehicles/` is the same as `/vehicles`).
+- Unknown query parameters (like ?color=red) are ignored rather than rejected.
