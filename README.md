@@ -145,3 +145,7 @@ Run `mysql -u <user> -p <database> < schema.sql` to reset the data after testing
 - Price is stored as `DECIMAL(10,2)` and returned as a number.
 - Trailing slashes are ignored (`/vehicles/` is the same as `/vehicles`).
 - Unknown query parameters (like ?color=red) are ignored rather than rejected.
+- PUT is a full replacement, so all fields are required.
+- Numbers in the JSON body must be JSON numbers, not strings.
+- Unknown fields in the body are ignored.
+- `type_id` must exist in `vehicle_types`.

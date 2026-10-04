@@ -65,7 +65,7 @@ final class VehicleController
     private function validateOrFail(array $data): void
     {
         $errors = $this->vehicleValidator->validate($data);
-        if (isset($errors['type_id']) && !$this->repository->typeExists($data['type_id'])) {
+        if (!isset($errors['type_id']) && !$this->repository->typeExists($data['type_id'])) {
             $errors['type_id'] = 'does not exist';
         }
         if ($errors !== []) {
