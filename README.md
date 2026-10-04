@@ -47,7 +47,7 @@ A small REST API in plain PHP for managing vehicles (create, read, update, delet
 - [ ] Global handler: generic 500, details logged
 
 ### README
-- [ ] How to run
+- [x] How to run
 - [ ] Assumptions made
 - [ ] What I consider most important
 

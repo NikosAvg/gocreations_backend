@@ -6,6 +6,13 @@ use PDO;
 
 final class VehicleRepository
 {
+    public const SORTS = [
+        'name_asc' => 'model_name ASC, id ASC',
+        'name_desc' => 'model_name DESC, id ASC',
+        'price_asc' => 'price ASC, id ASC',
+        'price_desc' => 'price DESC, id ASC',
+    ];
+
     public function __construct(private PDO $pdo)
     {
     }
@@ -34,7 +41,9 @@ final class VehicleRepository
         if ($where) {
             $sql .= ' WHERE ' . implode(' AND ', $where);
         }
-        $sql .= ' ORDER BY id';
+        $sort = $filters['sort'] ?? null;
+        $sql .= ' ORDER BY ' . (self::SORTS[$sort] ?? 'id ASC');
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
 
