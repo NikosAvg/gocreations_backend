@@ -7,12 +7,14 @@ use App\Database;
 use App\Response;
 use App\VehicleController;
 use App\VehicleRepository;
+use App\QueryValidator;
 
 $method = $_SERVER["REQUEST_METHOD"];
 $path = rtrim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), '/');
 
 $controller = new VehicleController(
-    new VehicleRepository(Database::connect())
+    new VehicleRepository(Database::connect()),
+    new QueryValidator()
 );
 
 if ($path === '/vehicles'){
